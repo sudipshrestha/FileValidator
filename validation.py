@@ -34,14 +34,8 @@ class Validation :
 					#for identifying error
 					self.pointError(value,i,self.rowNum)
 					return False
-					
-			elif self.dataType[i] == "timestamp": # if data type for this data is defined as timestamp
-				if self.isValueTimestamp(value) is False:
-					#for identifying error
-					self.pointError(value,i,self.rowNum)
-					return False
-			
-			else : # assume data type for this data is defined as varchar
+								
+			else : # assumed data type for this data is defined as varchar
 				if self.isValueVarchar(value) is False:
 					#for identifying error
 					self.pointError(value,i,self.rowNum)
@@ -54,7 +48,8 @@ class Validation :
 			return True
 		except :
 			return False	
-				
+
+			
 	def isValueDatetime(self,value):
 		if value <> "" : #check data type only if value is not null
 			try: 	# return true if value is sucessfully parsed as datetime		
@@ -64,16 +59,7 @@ class Validation :
 				return False	
 		else:
 			return True #returns true since value is null
-			
-	def isValueTimestamp(self,value):
-		if value <> "" : #check data type only if value is not null
-			try:	# return true if value is sucessfully parsed as timestamp	
-				datetime.strptime(value, "%H:%M:%S %p")
-				return True
-			except :
-				return False	
-		else:
-			return True #returns true since value is null
+
 			
 	def isValueVarchar(self,value):
 		try:	# return true if value is sucessfully parsed as string (varchar)	
@@ -81,18 +67,19 @@ class Validation :
 			return True
 		except :
 			return False
-		
+	
+	
 	def pointError(self,value,i,rowNum):
 		
 		configReader = ConfigReader()
 		config = configReader.readConfig()
 		
 		#reading the parameters from the config file
-		self.topOffset = config.get('Csv','csv.topOffset')
-		self.leftOffset = config.get('Csv','csv.leftOffset')
+		topOffset = config.get('Csv','csv.topOffset')
+		leftOffset = config.get('Csv','csv.leftOffset')
 		
-		print "Column number : %d" %(i+1+int(self.leftOffset))
-		print "Row number : %d" %(rowNum+1+int(self.topOffset))
+		print "Column number : %d" %(i+1+int(leftOffset))
+		print "Row number : %d" %(rowNum+1+int(topOffset))
 		print "value: %s" % (value)
 		
 		

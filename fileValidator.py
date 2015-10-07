@@ -9,6 +9,7 @@ class FileValidator:
 		fileReader = FileReader()
 		tableMetadata = TableMetadata()
 		validation = Validation()
+		error = None
 		
 		fileColumns = fileReader.readHeader()
 		dbColumns = tableMetadata.readTableHeader()
@@ -20,11 +21,17 @@ class FileValidator:
 			for eachRow in fileRows :	
 				self.rowNum = self.rowNum + 1
 				if validation.validateRow(dataType,eachRow,self.rowNum) is False:
-					print "Error in dataType"
+					error = "Error in dataType"
 					break	
 		else:
-			print "Error in header"
-			
+			error =  "Error in header"
+		
+		if error:
+			print error
+		else:	
+			print"File sucessfully validated"
+		
+		
 		
 if  __name__ =='__main__':
 	fileValidator = FileValidator()
