@@ -12,7 +12,7 @@ class TableMetadata:
 	def readTableHeader (self):
 
 		cursor = self.conn.cursor()
-		cursor.execute("select raw_column_field from test_db.data_validation where client_name = 'Teletech';")
+		cursor.execute("select raw_file_columns from file_validator.metadata where raw_file_columns <> 'null';")
 		dbColumns = cursor.fetchall()
 
 		rawColumns =[]
@@ -30,7 +30,7 @@ class TableMetadata:
 	def readMetadata (self) :
 		
 		cursor = self.conn.cursor()
-		cursor.execute("select data_types from test_db.data_validation where client_name = 'Teletech';")
+		cursor.execute("select data_type from file_validator.metadata where raw_file_columns <> 'null';")
 		columns = cursor.fetchall()
 		
 		rawColumns =[]

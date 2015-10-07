@@ -6,39 +6,46 @@ from configReader import ConfigReader
 class FileReader:
 
 	def __init__(self):
-		self.configReader = ConfigReader()
-		self.config = self.configReader.readConfig()
-
+		configReader = ConfigReader()
+		config = configReader.readConfig()
 		
-	def readHeader(self):
-
-		file = self.config.get('Csv', 'csv.file')
-		topOffset = self.config.get('Csv','csv.topOffset')
+		#reading the parameters from the config file
+		file = config.get('Csv', 'csv.file')
+		self.topOffset = config.get('Csv','csv.topOffset')
+		self.leftOffset = config.get('Csv','csv.leftOffset')
 		
+		#opening and reading from the file
 		with open(file, "rb") as csvfile:
 			file = csv.reader(csvfile, delimiter=',', quotechar='"')
-			data = []
+			self.data = []
 			for lines in file:
-				data.append(lines)
-			columns = data[int(topOffset)]		
+				self.data.append(lines) #storing each lines of file in array
+				
+	def readHeader(self):
 		
+		# selecting the first line as header from the data array
+		columns = self.data[int(self.topOffset)]	 		
+		
+		# for removing the leftOffset(blank cells) from the header
+		for i in range (int(self.leftOffset)):
+			columns.pop(i)
+		
+		#return the header as array	
 		return columns
 	
 	def readRows(self) :
 		
-		file = self.config.get('Csv', 'csv.file')
-		topOffset = self.config.get('Csv','csv.topOffset')
-		
-		with open(file, "rb") as csvfile:
-			file = csv.reader(csvfile, delimiter=',', quotechar='"')
-			data = []
-			for lines in file:
-				data.append(lines)
-				#print data
-			startRow = int(topOffset)+ 1
-			endRow = len(data)		
-			rows = data[startRow:endRow]
+		#for selecting only the data excluding the topOffset and header from data array 
+		startRow = int(self.topOffset)+ 1
+		endRow = len(self.data)		
+		rows = self.data[startRow:endRow]
+	
+	# for removing the leftOffset(blank cells) from each line
+		for eachRow in rows:
+			for i in range (int(self.leftOffset)):
+				eachRow.pop(i)
 
+		#return the rows of data as array
 		return rows
 	
 		

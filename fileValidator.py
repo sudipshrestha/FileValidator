@@ -3,6 +3,7 @@ from tableMetadata import TableMetadata
 from validation import Validation
 
 class FileValidator:
+	rowNum = 0
 
 	def __init__(self):	
 		fileReader = FileReader()
@@ -17,13 +18,10 @@ class FileValidator:
 			fileRows = fileReader.readRows()
 			
 			for eachRow in fileRows :	
-	
-				if validation.validateRow(dataType,eachRow) is False:
+				self.rowNum = self.rowNum + 1
+				if validation.validateRow(dataType,eachRow,self.rowNum) is False:
 					print "Error in dataType"
 					break	
-				else:
-					print "success"
-		
 		else:
 			print "Error in header"
 			
