@@ -54,6 +54,7 @@ class Validation :
 		if value <> "" : #check data type only if value is not null
 			try: 	# return true if value is sucessfully parsed as datetime		
 				datetime.strptime(value, "%Y/%m/%d %H:%M:%S")
+				#TODO add multiple timedate formats
 				return True
 			except :
 				return False	
@@ -74,7 +75,7 @@ class Validation :
 		configReader = ConfigReader()
 		config = configReader.readConfig()
 		
-		#reading the parameters from the config file
+		#Reading parameters from the config file
 		topOffset = config.get('Csv','csv.topOffset')
 		leftOffset = config.get('Csv','csv.leftOffset')
 		
