@@ -16,7 +16,9 @@ class FileReader:
 		
 		#opening and reading from the file
 		with open(file, "rb") as csvfile:
-			file = csv.reader(csvfile, delimiter=',', quotechar='"')
+			#file = csv.reader(csvfile, delimiter=',', quotechar='"')
+			# for removing the byte order mark (BOM ), read the file, decoded the file , and encodeg again without the BOM
+			file = csv.reader(f.read().decode('utf-8-sig').encode('utf-8').splitlines(), delimiter='\t', quotechar='"')
 			self.data = []
 			for lines in file:
 				self.data.append(lines) #storing each lines of file in array
