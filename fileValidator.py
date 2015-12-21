@@ -1,3 +1,4 @@
+import sys
 from fileReader import FileReader
 from tableMetadata import TableMetadata
 from validation import Validation
@@ -5,17 +6,21 @@ from validation import Validation
 class FileValidator:
 	rowNum = 0
 
-	def __init__(self):	
+	def __init__(self):
+		#importing the client name and raw table name passed as parameters
+		clientName = sys.argv[1]
+		rawTableName = sys.argv[2]
+		
 		fileReader = FileReader()
 		tableMetadata = TableMetadata()
 		validation = Validation()
 		error = None
 		
 		fileColumns = fileReader.readHeader()
-		dbColumns = tableMetadata.readTableHeader()
+		dbColumns = tableMetadata.readTableHeader(clientName,rawTableName)
 		
 		if validation.validateHeaders(dbColumns,fileColumns):
-			dataType = tableMetadata.readMetadata()
+			dataType = tableMetadata.readMetadata(clientName,rawTableName)
 			fileRows = fileReader.readRows()
 			
 			for eachRow in fileRows :	

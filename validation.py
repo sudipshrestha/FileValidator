@@ -9,8 +9,11 @@ class Validation :
 		
 		for i in range (len(self.dbColumns)):
 			if self.fileColumns[i] <> self.dbColumns[i]:
+				#point the location of the header error in the excel sheet
+				self.pointError(fileColumns[i],i,0) 
 				return False
-
+			#else:
+			#	print self.fileColumns[i] +"=" + self.dbColumns[i];
 		return True
 
 	

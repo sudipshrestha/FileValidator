@@ -9,10 +9,11 @@ class TableMetadata:
 		self.conn = self.dbConnection.dbConnect()
 	
 
-	def readTableHeader (self):
+	def readTableHeader (self,clientName,rawTableName):
 
 		cursor = self.conn.cursor()
-		cursor.execute("select raw_file_columns from file_validator.metadata where raw_file_columns <> 'null';")
+		sqlQuery = "select raw_file_columns from file_validator.metadata where client_name ='%s' and raw_table_name='%s' and raw_file_columns <> 'null';" %(clientName,rawTableName)
+		cursor.execute(sqlQuery)
 		dbColumns = cursor.fetchall()
 
 		rawColumns =[]
@@ -27,10 +28,11 @@ class TableMetadata:
 	
 		return columns
 	
-	def readMetadata (self) :
+	def readMetadata (self,clientName,rawTableName) :
 		
 		cursor = self.conn.cursor()
-		cursor.execute("select data_type from file_validator.metadata where raw_file_columns <> 'null';")
+		sqlQuery = "select data_type from file_validator.metadata where client_name='%s'and raw_table_name ='%s' and raw_file_columns <> 'null';" %(clientName,rawTableName)
+		cursor.execute(sqlQuery)
 		columns = cursor.fetchall()
 		
 		rawColumns =[]
