@@ -1,7 +1,7 @@
 import sys
 import re
 
-class sortFileType:
+class SortFileType:
 
 	def getFileType(self,clientName,fileName):
 		
