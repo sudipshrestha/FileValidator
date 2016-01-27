@@ -2,6 +2,7 @@ import sys
 from fileReader import FileReader
 from tableMetadata import TableMetadata
 from validation import Validation
+from sortfiletype import SortFileType
 
 class FileValidator:
 	rowNum = 0
@@ -9,7 +10,12 @@ class FileValidator:
 	def __init__(self):
 		#importing the client name and raw table name passed as parameters
 		clientName = sys.argv[1]
-		rawTableName = sys.argv[2]
+		fileName = sys.argv[2]
+		
+		sortFileType = SortFileType()
+		fileType,rawTableName = sortFileType.getFileType(clientName,fileName)
+		#print fileType
+		#print rawTableName
 		
 		fileReader = FileReader()
 		tableMetadata = TableMetadata()
