@@ -5,12 +5,13 @@ from configReader import ConfigReader
 
 class FileReader:
 
-	def __init__(self):
+	def __init__(self,fileName):
 		configReader = ConfigReader()
 		config = configReader.readConfig()
 		
 		#reading the parameters from the config file
-		file = config.get('Csv', 'csv.file')
+		#file = config.get('Csv', 'csv.file')
+		file = fileName
 		self.topOffset = config.get('Csv','csv.topOffset')
 		self.leftOffset = config.get('Csv','csv.leftOffset')
 		

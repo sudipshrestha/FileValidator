@@ -10,13 +10,13 @@ class SortFileType:
 				fileType = 'req'
 				rawTableName = 'zzz_cc_req_raw'
 				return fileType,rawTableName
-			elif (re.search('^candidate\.[0-9.]+\.csv',fileName)):
+			elif (re.search('^candidates\.[0-9.]+\.csv',fileName)):
 				fileType = 'candidate'
 				rawTableName = 'zzz_cc_candidate_raw'
 				return fileType,rawTableName
 			else:
-				print "Unknown file"
-		
+				sys.exit("Unknown file")
+				
 		elif clientName == "Pepsico":
 			if re.search('^NEW\sBB\sCandidate\s',fileName):
 				fileType = 'candidate'
@@ -27,7 +27,7 @@ class SortFileType:
 				rawTableName = 'zzz_pepsico_req_raw'
 				return fileType,rawTableName
 			else:
-				print "Unknown file"
+				sys.exit("Unknown file")
 			
 		else:
-			print "Unknown Client"
+			sys.exit("Unknown client")

@@ -17,7 +17,7 @@ class FileValidator:
 		#print fileType
 		#print rawTableName
 		
-		fileReader = FileReader()
+		fileReader = FileReader(fileName)
 		tableMetadata = TableMetadata()
 		validation = Validation()
 		error = None
