@@ -6,11 +6,11 @@ class SortFileType:
 	def getFileType(self,clientName,fileName):
 		
 		if clientName == 'Correctcare':
-			if re.search('^jobs\.[0-9.]+\.csv',fileName):
+			if re.search('^jobs\.[0-9.]+',fileName):
 				fileType = 'req'
 				rawTableName = 'zzz_cc_req_raw'
 				return fileType,rawTableName
-			elif (re.search('^candidates\.[0-9.]+\.csv',fileName)):
+			elif (re.search('^candidates\.[0-9.]+',fileName)):
 				fileType = 'candidate'
 				rawTableName = 'zzz_cc_candidate_raw'
 				return fileType,rawTableName
@@ -30,11 +30,11 @@ class SortFileType:
 				sys.exit("Unknown file")
 			
 		elif clientName == 'ADP':
-			if re.search('^ADP~adpbroadbean_RM_Can_[0-9_]+\.csv',fileName):
+			if re.search('^ADP~adpbroadbean_RM_Can_[0-9_]+',fileName):
 				fileType = 'candidate'
 				rawTableName = 'zzz_adp_candidate_raw'
 				return fileType,rawTableName
-			elif (re.search('^ADP~adpbroadbean_RM_Req_[0-9_]+\.csv',fileName)):
+			elif (re.search('^ADP~adpbroadbean_RM_Req_[0-9_]+',fileName)):
 				fileType = 'req'
 				rawTableName = 'zzz_adp_req_raw'
 				return fileType,rawTableName
