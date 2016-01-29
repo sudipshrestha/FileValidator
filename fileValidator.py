@@ -2,7 +2,8 @@ import sys
 from fileReader import FileReader
 from tableMetadata import TableMetadata
 from validation import Validation
-from sortfiletype import SortFileType
+from sortFiletype import SortFileType
+from fileInfo import FileInfo
 
 class FileValidator:
 	rowNum = 0
@@ -12,6 +13,13 @@ class FileValidator:
 		clientName = sys.argv[1]
 		fileName = sys.argv[2]
 		
+		#if needed to give filepath and validate a file not in the same folder
+		#fileNamewithPath = sys.argv[2]
+		#tempfileName = re.findall('[A-Za-z0-9_-\s]+.csv',fileNamewithPath)
+		#fileName = tempfileName[0]
+		
+		fileInfo = FileInfo()
+		fileInfo.setFileInfo(fileName)
 		sortFileType = SortFileType()
 		fileType,rawTableName = sortFileType.getFileType(clientName,fileName)
 		#print fileType
