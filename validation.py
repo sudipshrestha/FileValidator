@@ -13,7 +13,7 @@ class Validation :
 				self.pointError(fileColumns[i],i,0) 
 				return False
 			#else:
-			#	print self.fileColumns[i] +"=" + self.dbColumns[i];
+			#	print self.fileColumns[i] +"=" + self.dbColumns[i]; 	#Display the mismatch between the two values
 		return True
 
 	
@@ -55,12 +55,10 @@ class Validation :
 			
 	def isValueDatetime(self,value):
 		if value <> "" : #check data type only if value is not null
-			try: 	# return true if value is sucessfully parsed as datetime		
-				datetime.strptime(value, "%Y/%m/%d %H:%M:%S")
-				#TODO add multiple timedate formats
-				return True
-			except :
-				return False	
+			if re.match('^[0-9]+[/-][0-9][0-9][/-][0-9]+',value):	# return true if value is sucessfully parsed as datetime			
+				return True											# still need to optimize the regular expressions
+			else :
+				return False
 		else:
 			return True #returns true since value is null
 
